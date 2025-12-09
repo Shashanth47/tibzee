@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tibzee - Let's Play & Learn!</title>
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Tibzee offers customized, gamified learning for preschoolers, empowering teachers to create engaging games and track student progress with AI-powered insights. Request a 14-day free trial today!">
+    <meta name="keywords" content="preschool learning, gamified education, AI learning, educational games, teacher tools, early childhood education, personalized learning, kids learning games, free trial, B2B SaaS">
+
+    <!-- Open Graph (for Facebook, LinkedIn, etc.) -->
+    <meta property="og:title" content="Tibzee - Customized Gamified Learning for Preschoolers">
+    <meta property="og:description" content="Teachers build games. Kids play. AI tracks progress. Transform learning with interactive educational games for early childhood. Request a free trial!">
+    <meta property="og:image" content="https://www.tibzee.com/path-to-your-hero-image.jpg"> <!-- IMPORTANT: Replace with an actual, good-quality image URL -->
+    <meta property="og:url" content="https://www.tibzee.com/">
+    <meta property="og:type" content="website">
+
+    <!-- Twitter Card (for Twitter) -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Tibzee - Gamified Learning for Preschoolers">
+    <meta name="twitter:description" content="Teachers build games. Kids play. AI tracks progress. Transform learning with interactive educational games for early childhood. Request a free trial!">
+    <meta name="twitter:image" content="https://www.tibzee.com/path-to-your-hero-image.jpg"> <!-- IMPORTANT: Replace with an actual, good-quality image URL -->
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.7.77/Tone.js"></script>
+    
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="circular-gallery.css">
+    <style>
+        :root {
+            --c-pink: #FF66A0;
+            --c-yellow: #FFD966;
+            --c-blue: #66B2FF;
+            --c-green: #66FF99;
+            --c-purple: #A066FF;
+            --c-navy: #1B1F2B;
+            --font-heading: 'Fredoka One', cursive;
+            --font-body: 'Nunito', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: #FEF9FF; /* Light lilac background */
+        }
+
+        h1, h2, h3, h4 {
+            font-family: var(--font-heading);
+            color: var(--c-navy);
+        }
+
+        .highlight {
+            color: var(--c-pink);
+        }
+
+        .btn-bubble {
+            position: relative;
+            overflow: hidden;
+            border: 3px solid var(--c-navy);
+            box-shadow: 0 5px 0 var(--c-navy);
+            transition: all 0.1s ease-in-out;
+        }
+
+        .btn-bubble:active {
+            transform: translateY(5px);
+            box-shadow: 0 0px 0 var(--c-navy);
+        }
+
+        /* Animation styles */
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+        }
+        .scroll-animate.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Testimonial slide-in animations */
+        .scroll-animate-left {
+            opacity: 0;
+            transform: translateX(-60px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .scroll-animate-left.is-visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .scroll-animate-right {
+            opacity: 0;
+            transform: translateX(60px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .scroll-animate-right.is-visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        @keyframes float-gentle {
+            0% { transform: translateY(0px) rotate(1deg); }
+            50% { transform: translateY(-15px) rotate(-1deg); }
+            100% { transform: translateY(0px) rotate(1deg); }
+        }
+        .floating-video {
+            animation: float-gentle 10s ease-in-out infinite;
+        }
+
+        /* Notification Styles */
+        .notification {
+            position: fixed; top: 100px; right: 20px; z-index: 1001; animation: slideIn 0.3s ease-out;
+            background: white; border-radius: 20px; max-width: 400px;
+            border: 3px solid var(--c-navy); box-shadow: 0 5px 0 var(--c-navy);
+        }
+        .notification-content { padding: 16px 20px; display: flex; align-items: center; gap: 12px; }
+        .notification-message { flex: 1; color: var(--c-navy); font-weight: 700; font-size: 1.1rem; }
+        .notification-close { background: none; border: none; font-size: 24px; cursor: pointer; color: var(--c-navy); }
+        @keyframes slideIn { from { transform: translateX(120%); } to { transform: translateX(0); } }
+        
+        /* Dashboard animations */
+        @keyframes fillBar {
+            from { width: 0%; }
+            to { width: var(--target-width); }
+        }
+        
+        @keyframes drawCircle {
+            from { stroke-dashoffset: 283; }
+            to { stroke-dashoffset: 57; }
+        }
+        
+        /* Carousel Styles */
+        .carousel-slide {
+            opacity: 0;
+            transform: translateY(6px) scale(0.98);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .carousel-slide.active {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        .carousel-dot.active {
+            background-color: #8b5cf6 !important;
+        }
+
+        /* Hero carousel square frame & image styling */
+        .hero-square-frame {
+            background: rgba(255,255,255,0.96);
+            border-radius: 22px;
+            box-shadow: 0 18px 40px rgba(139, 92, 246, 0.20), inset 0 4px 12px rgba(0,0,0,0.06);
+        }
+        .hero-image {
+            border-radius: 20px;
+            border: 4px solid #ffffff;
+            box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+        }
+
+        /* Modal Pop-up Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7); /* Darker, more effective dim */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000; /* Above everything else */
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background-color: #FEF9FF; /* Match body background */
+            padding: 2.5rem; /* Increased padding */
+            border-radius: 2rem; /* More rounded */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            max-width: 90%; /* Responsive width */
+            width: 600px; /* Increased width for larger screens */
+            position: relative;
+            transform: translateY(-20px); /* Initial subtle animation */
+            opacity: 0;
+            transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+            border: 4px solid var(--c-green); /* Green border for the trial form */
+            max-height: 90vh; /* Limit height to viewport height */
+            overflow-y: auto; /* Enable scrolling for long content */
+            text-align: center; /* Center text within the modal */
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .modal-close-button {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 2.5rem; /* Larger close button */
+            cursor: pointer;
+            color: var(--c-navy);
+            line-height: 1; /* Align 'x' properly */
+            padding: 0.5rem; /* Make it easier to click */
+            border-radius: 50%;
+            transition: background-color 0.2s, color 0.2s;
+        }
+
+        .modal-close-button:hover {
+            background-color: rgba(0, 0, 0, 0.1);
+            color: var(--c-pink);
+        }
+
+        /* Adjust form elements within modal for better alignment */
+        .modal-content h2,
+        .modal-content p {
+            text-align: center; /* Ensure headings and paragraphs are centered */
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .modal-content form label {
+            text-align: left; /* Keep labels left-aligned within the form */
+            display: block; /* Ensure label takes full width */
+        }
+        
+        /* Ensure equal card heights */
+        .feature-card {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            min-height: 320px;
+        }
+        
+        .feature-card-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .feature-card-content p {
+            flex: 1;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <!-- Header -->
+    <header class="bg-white/90 backdrop-blur-lg fixed top-0 left-0 right-0 z-50 transition-all duration-300 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 md:px-8 py-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <img src="tibzee_logo.png" alt="Tibzee Logo" class="h-20 md:h-24 w-auto mr-4 transform origin-left scale-125">
+            </div>
+            <nav class="hidden md:flex space-x-10 lg:space-x-12 text-lg lg:text-xl font-semibold">
+                <a href="#how-it-works" class="text-gray-700 hover:text-pink-500 transition">How It Works</a>
+                <a href="#features" class="text-gray-700 hover:text-pink-500 transition">Features</a>
+                <a href="#demo" class="text-gray-700 hover:text-pink-500 transition">Demo</a>
+                <a href="#" id="nav-free-trial-button" class="text-gray-700 hover:text-pink-500 transition">Free Trial</a>
+            </nav>
+            <a href="#contact" class="btn-bubble hidden md:block text-navy-900 font-bold text-lg px-6 py-3 rounded-full transition-transform transform hover:scale-105" style="background-color: var(--c-yellow);">Contact Us</a>
+            <button id="mobile-menu-button" class="md:hidden text-gray-800">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden px-4 md:px-8 pb-4">
+               <a href="#how-it-works" class="block py-2 text-center text-lg font-bold text-gray-600 hover:text-pink-500">How It Works</a>
+               <a href="#features" class="block py-2 text-center text-lg font-bold text-gray-600 hover:text-pink-500">Features</a>
+               <a href="#demo" class="block py-2 text-center text-lg font-bold text-gray-600 hover:text-pink-500">Demo</a>
+               <a href="#" id="mobile-nav-free-trial-button" class="block py-2 text-center text-lg font-bold text-gray-600 hover:text-pink-500">Free Trial</a>
+               <a href="#contact" class="btn-bubble block mt-2 text-center text-navy-900 font-bold px-5 py-3 rounded-3xl" style="background-color: var(--c-yellow);">Contact Us</a>
+        </div>
+    </header>
+
+    <main>
+                <!-- Hero Section -->
+        <section id="hero" class="relative pt-24 pb-16 md:pt-32 md:pb-24 lg:pt-40 lg:pb-32 overflow-hidden">
+            <div class="max-w-7xl mx-auto px-4 md:px-8 relative z-10">
+                <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12 lg:gap-16">
+                    <!-- Left Side: Text Content -->
+                    <div class="flex-1 text-center md:text-left flex flex-col justify-center">
+                        <h1 class="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold text-gray-900 leading-tight mb-6">
+                            <span class="block">All-in-One</span>
+                            <span class="block"><span class="highlight">Preschool Platform</span></span>
+                            <span class="block">for Modern Learning</span>
+                        </h1>
+                        <p class="text-lg md:text-xl lg:text-2xl text-gray-700 max-w-2xl mx-auto md:mx-0 font-medium leading-relaxed mb-8">
+                            Interactive games, smart communication, secure payments, AI insights, and seamless classroom management—all in one vibrant platform.
+                        </p>
+                        <div class="flex justify-center md:justify-start">
+                            <a href="#" id="hero-free-trial-button" class="inline-block text-white font-bold text-xl px-8 py-4 rounded-xl shadow-md hover:scale-105 transition-all duration-300" style="background-color: #9333ea;">
+                                Start Your Free Trial Today!
+                            </a>
+                        </div>
+                    </div>
+                    <!-- Right Side: Platform Preview -->
+                    <div class="flex-1 max-w-lg mx-auto">
+                        <div class="relative w-full floating-video">
+                            <!-- Platform container with soft shadow and rounded corners -->
+                            <div class="bg-white rounded-xl p-4 shadow-lg border-2 border-purple-100">
+                                <div class="aspect-[4/3] rounded-lg overflow-hidden bg-gradient-to-br from-purple-100 to-purple-200 flex items-center justify-center relative">
+                                    <!-- Platform Features Carousel Container (square frame slightly larger than images) -->
+                                    <div class="hero-square-frame absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 overflow-hidden flex items-center justify-center w-72 h-72 md:w-80 md:h-80">
+                                        <!-- Carousel Slides -->
+                                        <div id="game-carousel" class="relative w-full h-full">
+                                            <!-- Slide 1 -->
+                                            <div class="carousel-slide active flex items-center justify-center absolute inset-0">
+                                                <img src="images/boy-7767010_1280.jpg" alt="Slide 1" class="hero-image w-56 h-56 md:w-64 md:h-64 object-cover" />
+                                            </div>
+                                            <!-- Slide 2 -->
+                                            <div class="carousel-slide flex items-center justify-center absolute inset-0">
+                                                <img src="images/child-710596_1280.jpg" alt="Slide 2" class="hero-image w-56 h-56 md:w-64 md:h-64 object-cover" />
+                                            </div>
+                                            <!-- Slide 3 -->
+                                            <div class="carousel-slide flex items-center justify-center absolute inset-0">
+                                                <img src="images/children-7339439_1280.jpg" alt="Slide 3" class="hero-image w-56 h-56 md:w-64 md:h-64 object-cover" />
+                                            </div>
+                                            <!-- Slide 4 -->
+                                            <div class="carousel-slide flex items-center justify-center absolute inset-0">
+                                                <img src="images/cute-5147384_1280.jpg" alt="Slide 4" class="hero-image w-56 h-56 md:w-64 md:h-64 object-cover" />
+                                            </div>
+                                            <!-- Slide 5 -->
+                                            <div class="carousel-slide flex items-center justify-center absolute inset-0">
+                                                <img src="images/little-boy-7339443_1280.jpg" alt="Slide 5" class="hero-image w-56 h-56 md:w-64 md:h-64 object-cover" />
+                                            </div>
+                                            <!-- Slide 6 -->
+                                            <div class="carousel-slide flex items-center justify-center absolute inset-0">
+                                                <img src="images/little-boy-7339447_1280.jpg" alt="Slide 6" class="hero-image w-56 h-56 md:w-64 md:h-64 object-cover" />
+                                            </div>
+                                            <!-- Slide 7 -->
+                                            <div class="carousel-slide flex items-center justify-center absolute inset-0">
+                                                <img src="images/preschool-in-indore-4507929_1280.jpg" alt="Slide 7" class="hero-image w-56 h-56 md:w-64 md:h-64 object-cover" />
+                                            </div>
+                                        </div>
+
+                                        <!-- Carousel Navigation Dots -->
+                                        <div class="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex space-x-2">
+                                            <button class="carousel-dot w-2 h-2 bg-purple-400 rounded-full active" data-slide="0"></button>
+                                            <button class="carousel-dot w-2 h-2 bg-gray-300 rounded-full" data-slide="1"></button>
+                                            <button class="carousel-dot w-2 h-2 bg-gray-300 rounded-full" data-slide="2"></button>
+                                            <button class="carousel-dot w-2 h-2 bg-gray-300 rounded-full" data-slide="3"></button>
+                                            <button class="carousel-dot w-2 h-2 bg-gray-300 rounded-full" data-slide="4"></button>
+                                            <button class="carousel-dot w-2 h-2 bg-gray-300 rounded-full" data-slide="5"></button>
+                                            <button class="carousel-dot w-2 h-2 bg-gray-300 rounded-full" data-slide="6"></button>
+                                        </div>
+                                    </div>
+                                    <!-- Floating elements for animation -->
+                                    <div class="absolute top-2 right-2 w-12 h-12 bg-yellow-400 rounded-full animate-bounce shadow-md" style="animation-delay: 0s;"></div>
+                                    <div class="absolute bottom-2 left-2 w-10 h-10 bg-pink-400 rounded-full animate-bounce shadow-md" style="animation-delay: 0.5s;"></div>
+                                    <div class="absolute top-1/3 left-2 w-8 h-8 bg-blue-400 rounded-full animate-bounce shadow-md" style="animation-delay: 1s;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Alternating Feature Strip: Classroom Feed, Smart Chat, Star Rewards, Easy Payments -->
+        <section id="feature-strip" class="py-16 md:py-20 bg-white">
+            <div class="max-w-7xl mx-auto px-4 md:px-8">
+                <!-- Item 1: Classroom Feed (video left, description right) -->
+                <div class="stagger-item mb-12 md:mb-16">
+                    <div class="stagger-card accent-pink stagger-media-card">
+                        <div class="stagger-media">
+                            <video class="boomerang-video" src="videos/class_feed.mp4" playsinline muted></video>
+                        </div>
+                    </div>
+                    <div class="stagger-desc">
+                        <h4 class="stagger-desc-title">Share classroom moments instantly</h4>
+                        <p class="stagger-desc-text">Post photos, updates, and highlights so families feel connected to daily activities. Simple, delightful updates keep everyone in the loop.</p>
+                    </div>
+                </div>
+
+                <!-- Item 2: Daily Attendance (video right, description left) -->
+                <div class="stagger-item reverse mb-12 md:mb-16">
+                    <div class="stagger-card accent-blue stagger-media-card">
+                        <div class="stagger-media">
+                            <video class="boomerang-video" src="videos/attendance.mp4" playsinline muted></video>
+                        </div>
+                    </div>
+                    <div class="stagger-desc">
+                        <h4 class="stagger-desc-title">Track daily attendance effortlessly</h4>
+                        <p class="stagger-desc-text">Record student check-ins quickly and keep daily attendance organized. Optionally notify parents when a child is marked present.</p>
+                    </div>
+                </div>
+
+                <!-- Item 3: Star Rewards (video left, description right) -->
+                <div class="stagger-item mb-12 md:mb-16">
+                    <div class="stagger-card accent-yellow stagger-media-card">
+                        <div class="stagger-media">
+                            <video class="boomerang-video" src="videos/stars.mp4" playsinline muted></video>
+                        </div>
+                    </div>
+                    <div class="stagger-desc">
+                        <h4 class="stagger-desc-title">Motivate with simple, positive recognition</h4>
+                        <p class="stagger-desc-text">Celebrate achievements with stars and badges. Encourage good habits and share milestones with parents in a tap.</p>
+                    </div>
+                </div>
+
+                <!-- Item 4: Easy Payments (card right, description left) -->
+                <div class="stagger-item reverse">
+                    <div class="stagger-card accent-green">
+                        <div class="stagger-card-icon">
+                            <span class="text-2xl">✅</span>
+                        </div>
+                        <h3 class="stagger-card-title">Easy Payments</h3>
+                        <div class="stagger-card-body">
+                            <div class="stagger-center text-green-700">
+                                <div class="w-6 h-4 bg-green-400 rounded mx-auto mb-1"></div>
+                                <div class="stagger-body-line">Fee Payment</div>
+                            </div>
+                            <div class="stagger-body-line text-green-700">Completed · Receipt sent</div>
+                        </div>
+                        <div class="stagger-progress"><div></div></div>
+                    </div>
+                    <div class="stagger-desc">
+                        <h4 class="stagger-desc-title">Hassle-free payments and confirmations</h4>
+                        <p class="stagger-desc-text">Collect fees securely and notify parents instantly. Clear records and automatic receipts reduce admin time.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Communication & Classroom Management Features Section -->
+        <section id="features" class="py-20 lg:py-32 bg-gradient-to-br from-blue-50 to-purple-50">
+            <div class="max-w-7xl mx-auto px-4 md:px-8">
+                <div class="scroll-animate text-center mb-16">
+                    <h2 class="text-4xl lg:text-5xl font-extrabold text-gray-900 mb-6">All-in-One Preschool Platform</h2>
+                    <p class="text-xl text-gray-600 max-w-3xl mx-auto">Interactive learning games, seamless parent communication, smart classroom management, and AI-powered insights - everything you need in one powerful platform</p>
+                </div>
+
+                <!-- Circular Gallery showcasing communication features -->
+                <div id="comm-gallery" class="circular-gallery mb-10"></div>
+                
+                <!-- Communication Features Row removed: relying solely on circular gallery -->
+
+                <!-- Call to Action for new features -->
+                <div class="text-center mt-12 scroll-animate" style="transition-delay: 600ms;">
+                    <p class="text-lg text-gray-700 mb-6 max-w-3xl mx-auto">
+                        <span class="font-bold text-purple-600">All-in-one platform:</span> Games, communication, and classroom management working together to create the perfect preschool experience.
+                    </p>
+                    <a href="#" id="features-cta-button" class="inline-block text-white font-bold text-xl px-8 py-4 rounded-xl shadow-lg hover:scale-105 transition-all duration-300" style="background-color: #9333ea;">
+                        See How It All Works Together
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Teachers Love Tibzee Section -->
+        <section id="how-it-works" class="py-20 lg:py-32 bg-gradient-to-br from-yellow-50 to-orange-50">
+            <div class="max-w-7xl mx-auto px-4 md:px-8">
+                <div class="scroll-animate text-center mb-16">
+                    <h2 class="text-4xl lg:text-5xl font-extrabold text-gray-900 mb-6">Why Teachers Love Tibzee</h2>
+                    <p class="text-xl text-gray-600 max-w-3xl mx-auto">Real results from educators who've transformed their classrooms with our all-in-one platform</p>
+                </div>
+                
+                <!-- Teacher Benefits Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-16">
+                    <!-- Time Savings Card -->
+                    <div class="scroll-animate bg-white rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 border-3 border-green-200 hover:border-green-300 group">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-gradient-to-br from-green-400 to-green-500 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform duration-300">
+                                <i class="fas fa-clock text-xl text-white"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-900 group-hover:text-green-600 transition-colors duration-300">5+ hrs saved/week</h3>
+                                <p class="text-sm text-gray-600">on lesson planning</p>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-700 leading-relaxed">Create engaging activities in minutes, not hours. Less paperwork, more teaching.</p>
+                    </div>
+
+                    <!-- Engagement Stats -->
+                    <div class="scroll-animate bg-white rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 border-3 border-blue-200 hover:border-blue-300 group" style="transition-delay: 50ms;">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-500 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform duration-300">
+                                <i class="fas fa-chart-line text-xl text-white"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors duration-300">60% higher engagement</h3>
+                                <p class="text-sm text-gray-600">in learning activities</p>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-700 leading-relaxed">Interactive games keep children focused and excited about learning every day.</p>
+                    </div>
+
+                    <!-- Parent Satisfaction -->
+                    <div class="scroll-animate bg-white rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 border-3 border-purple-200 hover:border-purple-300 group" style="transition-delay: 100ms;">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-gradient-to-br from-purple-400 to-purple-500 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform duration-300">
+                                <i class="fas fa-heart text-xl text-white"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-900 group-hover:text-purple-600 transition-colors duration-300">95% parent satisfaction</h3>
+                                <p class="text-sm text-gray-600">with communication</p>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-700 leading-relaxed">Real-time updates keep parents connected to their child's learning journey.</p>
+                    </div>
+
+                    <!-- No Tech Stress -->
+                    <div class="scroll-animate bg-white rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 border-3 border-yellow-200 hover:border-yellow-300 group" style="transition-delay: 150ms;">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-gradient-to-br from-yellow-400 to-yellow-500 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform duration-300">
+                                <i class="fas fa-magic-wand-sparkles text-xl text-white"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-900 group-hover:text-yellow-600 transition-colors duration-300">No Tech Stress</h3>
+                                <p class="text-sm text-gray-600">designed for teachers</p>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-700 leading-relaxed">Intuitive interface means you can start creating on day one - no training required.</p>
+                    </div>
+
+                    <!-- Perfect for Every Child -->
+                    <div class="scroll-animate bg-white rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 border-3 border-pink-200 hover:border-pink-300 group" style="transition-delay: 200ms;">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-gradient-to-br from-pink-400 to-pink-500 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform duration-300">
+                                <i class="fas fa-user-graduate text-xl text-white"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-900 group-hover:text-pink-600 transition-colors duration-300">Perfect for Every Child</h3>
+                                <p class="text-sm text-gray-600">AI-powered insights</p>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-700 leading-relaxed">Understand each child's learning style and make differentiated instruction effortless.</p>
+                    </div>
+
+                    <!-- Feel Like a Superhero -->
+                    <div class="scroll-animate bg-white rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 border-3 border-teal-200 hover:border-teal-300 group" style="transition-delay: 250ms;">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-gradient-to-br from-teal-400 to-teal-500 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform duration-300">
+                                <i class="fas fa-trophy text-xl text-white"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-900 group-hover:text-teal-600 transition-colors duration-300">Feel Like a Superhero</h3>
+                                <p class="text-sm text-gray-600">rediscover teaching joy</p>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-700 leading-relaxed">Watch children's faces light up with every lesson. Make magic happen daily.</p>
+                    </div>
+                </div>
+
+                <!-- Teacher Testimonial Highlight -->
+                <div class="scroll-animate bg-gradient-to-r from-pink-200 to-rose-300 rounded-3xl p-8 lg:p-12 text-gray-800 text-center" style="transition-delay: 600ms;">
+                    <div class="flex items-center justify-center mb-6">
+                        <div class="flex space-x-1">
+                            <i class="fas fa-star text-yellow-500 text-2xl"></i>
+                            <i class="fas fa-star text-yellow-500 text-2xl"></i>
+                            <i class="fas fa-star text-yellow-500 text-2xl"></i>
+                            <i class="fas fa-star text-yellow-500 text-2xl"></i>
+                            <i class="fas fa-star text-yellow-500 text-2xl"></i>
+                        </div>
+                    </div>
+                    <blockquote class="text-2xl lg:text-3xl font-bold mb-6 leading-relaxed">
+                        "Tibzee transformed my classroom from chaos to magic. Kids are engaged, parents are happy, and I actually have time to focus on teaching instead of paperwork!"
+                    </blockquote>
+                    <cite class="text-xl opacity-90">
+                        — Priya Sharma, Preschool Teacher, 15+ years experience
+                    </cite>
+                </div>
+
+                <!-- Call to Action -->
+                <div class="text-center mt-16 scroll-animate" style="transition-delay: 700ms;">
+                    <p class="text-xl text-gray-700 mb-8 max-w-3xl mx-auto">
+                        Join over <span class="font-bold text-purple-600">10,000+ teachers</span> who've already transformed their classrooms with Tibzee
+                    </p>
+                    <a href="#" id="teachers-love-cta" class="inline-block bg-gradient-to-r from-green-500 to-teal-600 text-white font-bold text-xl px-10 py-5 rounded-xl shadow-lg hover:scale-105 transition-all duration-300">
+                        Start Your Free Trial Today
+                    </a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Demo Section -->
+        <section id="demo" class="py-20 lg:py-32 bg-gradient-to-br from-purple-50 to-pink-50">
+            <div class="max-w-7xl mx-auto px-4 md:px-8">
+                <div class="scroll-animate text-center mb-16">
+                    <h2 class="text-4xl lg:text-5xl font-extrabold text-gray-900 mb-6">See Tibzee Games and Worksheet Maker in Action!</h2>
+                    <p class="text-xl text-gray-600 max-w-2xl mx-auto">Watch how easy it is to create engaging learning games that kids love</p>
+                </div>
+                
+                <div class="max-w-4xl mx-auto">
+                    <div class="scroll-animate relative">
+                        <!-- Video Container with decorative elements -->
+                        <div class="relative bg-white rounded-3xl p-6 shadow-2xl border-4 border-purple-200">
+                            <!-- Floating decorative elements -->
+                            <div class="absolute -top-2 -left-2 w-8 h-8 bg-yellow-400 rounded-full animate-bounce" style="animation-delay: 0s;"></div>
+                            <div class="absolute -top-2 -right-2 w-6 h-6 bg-pink-400 rounded-full animate-bounce" style="animation-delay: 0.5s;"></div>
+                            <div class="absolute -bottom-2 -left-2 w-6 h-6 bg-blue-400 rounded-full animate-bounce" style="animation-delay: 1s;"></div>
+                            <div class="absolute -bottom-2 -right-2 w-8 h-8 bg-green-400 rounded-full animate-bounce" style="animation-delay: 1.5s;"></div>
+                            
+                            <!-- Video placeholder - replace 'your-video.mp4' with your actual video file -->
+                            <div class="relative aspect-video rounded-2xl overflow-hidden bg-gradient-to-br from-purple-100 to-purple-200 shadow-lg">
+                                <video 
+                                    class="w-full h-full object-cover" 
+                                    controls 
+                                    poster="demo_thumbnail.jpg" <!-- IMPORTANT: Add a path to a representative image for your video -->
+                                    preload="metadata"
+                                >
+                                    <source src="demo.mp4" type="video/mp4">
+                                    <source src="demo.mp4" type="video/webm">
+                                    <!-- Fallback content -->
+                                    <div class="flex items-center justify-center h-full">
+                                        <div class="text-center">
+                                            <div class="w-24 h-24 bg-purple-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                                                <i class="fas fa-play text-white text-3xl"></i>
+                                            </div>
+                                            <h3 class="text-xl font-bold text-purple-800 mb-2">Demo Video</h3>
+                                            <p class="text-purple-600">Your video will appear here</p>
+                                        </div>
+                                    </div>
+                                </video>
+                            </div>
+                            
+                            <!-- Video description -->
+                            <div class="mt-6 text-center">
+                                <h3 class="text-2xl font-bold text-gray-900 mb-3">Transform Learning in Minutes</h3>
+                                <p class="text-lg text-gray-600 leading-relaxed">
+                                    See how teachers are using Tibzee to create interactive games that boost engagement and track student progress with AI-powered insights.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- The Free Trial Section (now hidden, content moved to modal) -->
+        <section id="free-trial" class="hidden">
+            <!-- Content moved to modal -->
+        </section>
+
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-20 lg:py-32">
+               <div class="max-w-7xl mx-auto px-4 md:px-8 text-center">
+                     <div class="scroll-animate bg-white p-10 lg:p-16 rounded-3xl shadow-2xl border-4 border-gray-100">
+                         <h2 class="text-4xl lg:text-5xl font-extrabold mb-8" style="color: var(--c-purple);">Get in Touch</h2>
+                         <p class="text-xl lg:text-2xl text-gray-600 max-w-3xl mx-auto mb-10">Ready to transform learning in your classroom? We'd love to hear from you!</p>
+                         <div class="bg-gradient-to-r from-purple-50 to-pink-50 rounded-2xl p-8 border-2 border-purple-200 max-w-2xl mx-auto">
+                             <div class="flex items-center justify-center gap-4 mb-4">
+                                 <div class="w-12 h-12 bg-gradient-to-br from-purple-400 to-pink-400 rounded-full flex items-center justify-center">
+                                     <i class="fas fa-envelope text-white text-xl"></i>
+                                 </div>
+                                 <div>
+                                     <h3 class="text-lg font-bold text-gray-800">Email Us</h3>
+                                     <p class="text-gray-600">We'll get back to you soon!</p>
+                                 </div>
+                             </div>
+                             <a href="mailto:contact@tibzee.com" class="text-2xl lg:text-3xl font-bold text-purple-600 hover:text-purple-800 transition-colors">
+                                 contact@tibzee.com
+                             </a>
+                         </div>
+                     </div>
+               </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t-2 border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 md:px-8 py-20 lg:py-24">
+            
+            <!-- Main Footer Content -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-16 mb-16">
+                
+                <!-- Logo & Description -->
+                <div class="lg:col-span-2">
+                    <div class="flex items-center mb-6">
+                        <span class="text-2xl font-extrabold text-purple-800" style="font-family: var(--font-heading);">Tibzee</span>
+                    </div>
+                    <p class="text-purple-700 text-lg leading-relaxed mb-8 max-w-md">
+                        Transforming preschool education through gamified learning experiences that delight children and empower teachers.
+                    </p>
+                    
+                    <!-- Newsletter Signup -->
+                    <div class="bg-white rounded-3xl p-6 shadow-2xl border-4 border-purple-200">
+                        <h4 class="font-bold text-purple-800 text-lg mb-3">Stay Updated</h4>
+                        <p class="text-purple-600 text-sm mb-4">Get the latest updates and educational insights</p>
+                        <form id="newsletter-form" class="flex flex-col sm:flex-row gap-3">
+                            <input 
+                                type="email" 
+                                id="newsletter-email"
+                                name="email" 
+                                placeholder="Enter your email" 
+                                class="flex-1 px-4 py-3 border-2 border-purple-200 rounded-2xl focus:outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-200 transition-all"
+                                required
+                            >
+                            <button 
+                                type="submit" 
+                                class="btn-bubble bg-gradient-to-r from-purple-500 to-purple-600 text-white font-bold px-6 py-3 rounded-2xl hover:from-purple-600 hover:to-purple-700 transition-all transform hover:scale-105 shadow-2xl"
+                            >
+                                Subscribe
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                
+                <!-- Navigation Links -->
+                <div>
+                    <h4 class="font-extrabold text-purple-800 text-lg mb-6">Navigation</h4>
+                    <ul class="space-y-4">
+                        <li>
+                            <a href="#hero" class="text-purple-700 hover:text-purple-900 transition-colors font-medium flex items-center group">
+                                <span class="w-2 h-2 bg-purple-400 rounded-full mr-3 group-hover:bg-purple-600 transition-colors"></span>
+                                Home
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#features" class="text-purple-700 hover:text-purple-900 transition-colors font-medium flex items-center group">
+                                <span class="w-2 h-2 bg-purple-400 rounded-full mr-3 group-hover:bg-purple-600 transition-colors"></span>
+                                About
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#features" class="text-purple-700 hover:text-purple-900 transition-colors font-medium flex items-center group">
+                                <span class="w-2 h-2 bg-purple-400 rounded-full mr-3 group-hover:bg-purple-600 transition-colors"></span>
+                                Features
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#contact" class="text-purple-700 hover:text-purple-900 transition-colors font-medium flex items-center group">
+                                <span class="w-2 h-2 bg-purple-400 rounded-full mr-3 group-hover:bg-purple-600 transition-colors"></span>
+                                Contact
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" id="footer-nav-free-trial-button" class="text-purple-700 hover:text-purple-900 transition-colors font-medium flex items-center group">
+                                <span class="w-2 h-2 bg-purple-400 rounded-full mr-3 group-hover:bg-purple-600 transition-colors"></span>
+                                Free Trial
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Quick Links & Social -->
+                <div>
+                    <h4 class="font-extrabold text-purple-800 text-lg mb-6">Connect</h4>
+                    <ul class="space-y-4 mb-6">
+                        <li>
+                            <a href="#" class="text-purple-700 hover:text-purple-900 transition-colors font-medium flex items-center group">
+                                <span class="w-2 h-2 bg-purple-400 rounded-full mr-3 group-hover:bg-purple-600 transition-colors"></span>
+                                Support
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-purple-700 hover:text-purple-900 transition-colors font-medium flex items-center group">
+                                <span class="w-2 h-2 bg-purple-400 rounded-full mr-3 group-hover:bg-purple-600 transition-colors"></span>
+                                Resources
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-purple-700 hover:text-purple-900 transition-colors font-medium flex items-center group">
+                                <span class="w-2 h-2 bg-purple-400 rounded-full mr-3 group-hover:bg-purple-600 transition-colors"></span>
+                                Privacy
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-purple-700 hover:text-purple-900 transition-colors font-medium flex items-center group">
+                                <span class="w-2 h-2 bg-purple-400 rounded-full mr-3 group-hover:bg-purple-600 transition-colors"></span>
+                                Terms
+                            </a>
+                        </li>
+                    </ul>
+                    
+                    <!-- Social Links -->
+                    <div class="flex space-x-4">
+                        <a href="https://x.com/Tibzeeedtech" target="_blank" rel="noopener noreferrer" class="w-10 h-10 bg-purple-300 hover:bg-purple-400 rounded-full flex items-center justify-center transition-colors">
+                            <i class="fab fa-twitter text-purple-800"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-purple-300 hover:bg-purple-400 rounded-full flex items-center justify-center transition-colors">
+                            <i class="fab fa-linkedin text-purple-800"></i>
+                        </a>
+                        <a href="https://www.instagram.com/tibzeeedtech/" target="_blank" rel="noopener noreferrer" class="w-10 h-10 bg-purple-300 hover:bg-purple-400 rounded-full flex items-center justify-center transition-colors">
+                            <i class="fab fa-instagram text-purple-800"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Final CTA Section -->
+            <div class="bg-gradient-to-r from-purple-500 to-purple-600 rounded-3xl p-8 lg:p-12 text-center text-white mb-16 shadow-2xl">
+                <h3 class="text-2xl lg:text-3xl font-extrabold mb-4" style="font-family: var(--font-heading);">
+                    Join the future of playful learning with Tibzee
+                </h3>
+                <p class="text-purple-100 text-lg mb-6 max-w-2xl mx-auto">
+                    Ready to transform your classroom? Request your 14-day free trial or contact us to learn more about how Tibzee can help your students learn through play.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="#" id="footer-cta-free-trial-button" class="btn-bubble bg-white text-purple-600 font-bold px-8 py-4 rounded-3xl hover:bg-purple-50 transition-all transform hover:scale-105 shadow-2xl">
+                        Request Free Trial
+                    </a>
+                    <a href="mailto:contact@tibzee.com" class="btn-bubble bg-purple-400 text-white font-bold px-8 py-4 rounded-3xl hover:bg-purple-300 transition-all transform hover:scale-105 shadow-2xl">
+                        Email Us
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Bottom Bar -->
+            <div class="border-t-2 border-purple-300 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                    <div class="flex items-center gap-6 text-purple-700">
+                        <span class="font-medium">© 2025 Tibzee</span>
+                        <span class="hidden md:block">•</span>
+                        <span class="text-sm">Built with ❤️ for amazing teachers</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Free Trial Pop-up Modal Structure -->
+    <div id="free-trial-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button" onclick="closeModal()">&times;</button>
+            <h2 class="text-4xl lg:text-5xl font-extrabold mb-8 text-gray-900">
+                Request Your <span class="font-extrabold text-blue-600">14-Day Free Trial</span>
+            </h2>
+            <p class="text-xl lg:text-2xl text-gray-700 max-w-3xl mx-auto mb-10">
+                Fill out the form below to get started. No credit card required!
+            </p>
+            <div class="max-w-xl mx-auto">
+                <form id="free-trial-form" class="space-y-6 bg-white p-8 rounded-2xl shadow-lg border-2 border-blue-100">
+                    <div>
+                        <label for="name" class="block text-left text-gray-700 text-lg font-semibold mb-2">Your Name</label>
+                        <input type="text" id="name" name="name" required
+                            class="w-full px-5 py-3 border-2 border-blue-200 rounded-xl focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-200 transition-all text-lg"
+                            placeholder="John Doe">
+                    </div>
+                    <div>
+                        <label for="email" class="block text-left text-gray-700 text-lg font-semibold mb-2">Work Email</label>
+                        <input type="email" id="email" name="email" required
+                            class="w-full px-5 py-3 border-2 border-blue-200 rounded-xl focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-200 transition-all text-lg"
+                            placeholder="john.doe@school.com">
+                    </div>
+                    <div>
+                        <label for="organization" class="block text-left text-gray-700 text-lg font-semibold mb-2">Organization/School Name</label>
+                        <input type="text" id="organization" name="organization" required
+                            class="w-full px-5 py-3 border-2 border-blue-200 rounded-xl focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-200 transition-all text-lg"
+                            placeholder="Happy Kids Preschool">
+                    </div>
+                    <div>
+                        <label for="message" class="block text-left text-gray-700 text-lg font-semibold mb-2">Anything else you'd like us to know?</label>
+                        <textarea id="message" name="message" rows="4"
+                            class="w-full px-5 py-3 border-2 border-blue-200 rounded-xl focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-200 transition-all text-lg"
+                            placeholder="e.g., We're interested in features for special needs students."></textarea>
+                    </div>
+                    <button type="submit" id="submit-trial-form"
+                        class="btn-bubble bg-gradient-to-r from-blue-500 to-blue-600 text-white font-bold text-xl px-8 py-4 rounded-3xl hover:from-blue-600 hover:to-blue-700 transition-all transform hover:scale-105 shadow-2xl w-full">
+                        Submit Request
+                        <i class="fas fa-paper-plane ml-3"></i>
+                    </button>
+                    <p class="text-sm text-gray-500 mt-4">
+                        By submitting, you agree to our <a href="#" class="text-blue-600 hover:underline">Privacy Policy</a>. We'll be in touch soon!
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+
+
+        // --- SOUND EFFECTS ---
+        let popSound, clickSound;
+        // Variable to track the last time a sound was played to prevent rapid successive calls
+        let lastSoundPlayTime = 0;
+        // Minimum interval between sound plays in milliseconds
+        const minSoundInterval = 100; // 100ms
+
+        // Function to initialize and start the audio context on the first user interaction.
+        async function startAudio() {
+            if (Tone.context.state !== 'running') {
+                await Tone.start();
+            }
+            // Initialize synths only after context is running
+            if (!popSound) {
+                popSound = new Tone.Synth({
+                    oscillator: { type: 'sine' },
+                    envelope: { attack: 0.01, decay: 0.1, sustain: 0.2, release: 0.2 }
+                }).toDestination();
+            }
+            if (!clickSound) {
+                clickSound = new Tone.MembraneSynth({
+                    pitchDecay: 0.01,
+                    octaves: 6,
+                    oscillator: { type: 'sine' },
+                    envelope: { attack: 0.001, decay: 0.2, sustain: 0, release: 0.1 }
+                }).toDestination();
+            }
+        }
+
+        async function playPop() {
+            const currentTime = Tone.context.currentTime * 1000; // Convert to milliseconds
+            if (currentTime - lastSoundPlayTime < minSoundInterval) {
+                return; // Don't play if too soon
+            }
+            try {
+                await startAudio();
+                popSound.triggerAttackRelease('C5', '8n');
+                lastSoundPlayTime = currentTime; // Update last play time
+            } catch (e) {
+                console.error("Could not play pop sound: ", e);
+            }
+        }
+        async function playClick() {
+            const currentTime = Tone.context.currentTime * 1000; // Convert to milliseconds
+            if (currentTime - lastSoundPlayTime < minSoundInterval) {
+                return; // Don't play if too soon
+            }
+            try {
+                await startAudio();
+                clickSound.triggerAttackRelease('C2', '8n');
+                lastSoundPlayTime = currentTime; // Update last play time
+            } catch (e) {
+                console.error("Could not play click sound: ", e);
+            }
+        }
+
+        
+        // --- MOBILE MENU ---
+        document.getElementById('mobile-menu-button').addEventListener('click', () => {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+
+        // --- SCROLL ANIMATIONS ---
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('is-visible');
+            });
+        }, { threshold: 0.1 });
+        
+        // Observe all scroll animation elements
+        document.querySelectorAll('.scroll-animate, .scroll-animate-left, .scroll-animate-right').forEach(el => observer.observe(el));
+
+        // --- CIRCULAR GALLERY NUDGE ---
+        // When the features section enters view, nudge the gallery to the right once
+        let commGalleryNudged = false;
+        const commSection = document.querySelector('#features');
+        const commGallery = document.querySelector('#comm-gallery');
+        if (commSection && commGallery) {
+            const galleryObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (!commGalleryNudged && entry.isIntersecting) {
+                        commGalleryNudged = true;
+                        // Try DOM fallback track first
+                        const track = commGallery.querySelector('.comm-fallback-track');
+                        const distance = 280; // pixels to nudge
+                        const duration = 1200; // ms, slower & smoother
+                        const startDelay = 450; // wait for layout
+
+                        if (track) {
+                            setTimeout(() => {
+                                const start = track.scrollLeft;
+                                const target = start + distance;
+                                const t0 = performance.now();
+                                function easeOutCubic(t){ return 1 - Math.pow(1 - t, 3); }
+                                function step(now){
+                                    const p = Math.min(1, (now - t0) / duration);
+                                    const eased = easeOutCubic(p);
+                                    track.scrollLeft = start + (target - start) * eased;
+                                    if (p < 1) requestAnimationFrame(step);
+                                }
+                                requestAnimationFrame(step);
+                            }, startDelay);
+                        } else {
+                            // OGL version: simulate a series of small wheel events over time
+                            let steps = 28;
+                            const stepDelta = 6; // small delta per step
+                            const stepInterval = duration / steps;
+                            setTimeout(() => {
+                                const tick = () => {
+                                    if (steps-- > 0) {
+                                        const evt = new WheelEvent('wheel', { deltaY: stepDelta, bubbles: true });
+                                        commGallery.dispatchEvent(evt);
+                                        setTimeout(tick, stepInterval);
+                                    }
+                                };
+                                tick();
+                            }, startDelay);
+                        }
+                        galleryObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.4 });
+            galleryObserver.observe(commSection);
+        }
+
+        // --- NOTIFICATION SYSTEM ---
+        function showNotification(message, isError = false) {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            if (isError) {
+                notification.style.borderColor = 'var(--c-pink)'; // Red for error
+                notification.style.boxShadow = '0 5px 0 var(--c-pink)';
+            }
+            notification.innerHTML = `<div class="notification-content"><span class="notification-message">${message}</span><button class="notification-close" onclick="this.parentElement.parentElement.remove()">×</button></div>`;
+            document.body.appendChild(notification);
+            playPop(); // This will also ensure audio is started
+            setTimeout(() => {
+                if (notification.parentElement) notification.remove();
+            }, 5000);
+        }
+
+        // --- CAROUSEL FUNCTIONALITY ---
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.carousel-slide');
+        const dots = document.querySelectorAll('.carousel-dot');
+        
+        function showSlide(index) {
+            // Hide all slides
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            // Show current slide
+            slides[index].classList.add('active');
+            dots[index].classList.add('active');
+        }
+        
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        }
+        
+        function goToSlide(index) {
+            currentSlide = index;
+            showSlide(currentSlide);
+        }
+        
+        // Auto-advance carousel every 3 seconds
+        setInterval(nextSlide, 3000);
+
+
+        // --- MODAL POP-UP FUNCTIONS ---
+        const freeTrialModal = document.getElementById('free-trial-modal');
+
+        function openModal() {
+            freeTrialModal.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevent scrolling background
+            playPop(); // Play sound when modal opens
+        }
+
+        function closeModal() {
+            freeTrialModal.classList.remove('active');
+            document.body.style.overflow = ''; // Restore scrolling
+            playClick(); // Play sound when modal closes
+        }
+
+        // Close modal when clicking outside the content
+        freeTrialModal.addEventListener('click', (e) => {
+            if (e.target === freeTrialModal) {
+                closeModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && freeTrialModal.classList.contains('active')) {
+                closeModal();
+            }
+        });
+
+
+        // Wait for DOM to load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Update button event handlers to open modal
+            document.querySelectorAll('#hero-free-trial-button, #nav-free-trial-button, #mobile-nav-free-trial-button, #footer-cta-free-trial-button, #footer-nav-free-trial-button, #features-cta-button').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.preventDefault(); // Prevent default link behavior (scrolling)
+                    openModal();
+                });
+            });
+            
+            // Add click sound to other .btn-bubble elements that don't open the modal
+            document.querySelectorAll('.btn-bubble:not(#hero-free-trial-button):not(#nav-free-trial-button):not(#mobile-nav-free-trial-button):not(#footer-cta-free-trial-button):not(#footer-nav-free-trial-button)').forEach(button => {
+                button.addEventListener('click', playClick);
+            });
+
+            document.querySelectorAll('.interactive-card').forEach(card => {
+                card.addEventListener('mouseenter', playPop);
+            });
+
+            // Carousel dot event listeners
+            document.querySelectorAll('.carousel-dot').forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    goToSlide(index);
+                    playClick();
+                });
+            });
+
+            // Handle Free Trial Form Submission
+            const freeTrialForm = document.getElementById('free-trial-form');
+            if (freeTrialForm) {
+                freeTrialForm.addEventListener('submit', async (e) => {
+                    e.preventDefault(); // Prevent default form submission
+                    playClick(); // Play click sound
+
+                    const formData = new FormData(freeTrialForm);
+                    const data = {};
+                    formData.forEach((value, key) => {
+                        data[key] = value;
+                    });
+
+                    // Basic client-side validation
+                    if (!data.name || !data.email || !data.organization) {
+                        showNotification("Please fill in all required fields.", true);
+                        return;
+                    }
+                    if (!/\S+@\S+\.\S+/.test(data.email)) {
+                        showNotification("Please enter a valid email address.", true);
+                        return;
+                    }
+
+                    // Formspree Endpoint for the free trial form
+                    const endpoint = 'https://formspree.io/f/xeozqnja'; 
+                    
+                    try {
+                        const response = await fetch(endpoint, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Accept': 'application/json' // Indicate that we expect JSON response
+                            },
+                            body: JSON.stringify(data)
+                        });
+
+                        if (response.ok) {
+                            showNotification("Thank you! Your free trial request has been submitted. We'll be in touch soon!");
+                            freeTrialForm.reset(); // Clear the form
+                            closeModal(); // Close the modal on successful submission
+                        } else {
+                            const errorText = await response.text();
+                            showNotification(`Failed to submit request. Please try again. Error: ${errorText}`, true);
+                            console.error('Form submission error:', response.status, errorText);
+                        }
+                    } catch (error) {
+                        showNotification("An error occurred. Please check your internet connection and try again.", true);
+                        console.error('Network or submission error:', error);
+                    }
+                });
+            }
+
+            // Handle Newsletter Form Submission
+            const newsletterForm = document.getElementById('newsletter-form');
+            if (newsletterForm) {
+                newsletterForm.addEventListener('submit', async (e) => {
+                    e.preventDefault(); // Prevent default form submission
+                    playClick(); // Play click sound
+
+                    const emailInput = document.getElementById('newsletter-email');
+                    const email = emailInput.value;
+
+                    // Email validation
+                    if (!email) {
+                        showNotification("Please enter your email address.", true);
+                        return;
+                    }
+                    if (!/\S+@\S+\.\S+/.test(email)) {
+                        showNotification("Please enter a valid email address.", true);
+                        return;
+                    }
+
+                    // Using the same Formspree endpoint as the free trial form as requested
+                    const newsletterEndpoint = 'https://formspree.io/f/xeozqnja'; 
+                    
+                    try {
+                        const response = await fetch(newsletterEndpoint, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Accept': 'application/json'
+                            },
+                            body: JSON.stringify({ email: email })
+                        });
+
+                        if (response.ok) {
+                            showNotification("Thank you for subscribing to our newsletter!");
+                            newsletterForm.reset(); // Clear the form
+                        } else {
+                            const errorText = await response.text();
+                            showNotification(`Failed to subscribe. Please try again. Error: ${errorText}`, true);
+                            console.error('Newsletter submission error:', response.status, errorText);
+                        }
+                    } catch (error) {
+                        showNotification("An error occurred. Please check your internet connection and try again.", true);
+                        console.error('Network or submission error:', error);
+                    }
+                });
+            }
+        });
+
+        // --- Boomerang Videos: autoplay forward then reverse ---
+        (function initBoomerangVideos(){
+            const vids = document.querySelectorAll('video.boomerang-video');
+            vids.forEach(v => {
+                // Ensure autoplay is allowed
+                v.muted = true; v.setAttribute('muted',''); v.playsInline = true; v.setAttribute('playsinline','');
+                let forward = true;
+                function playForward(){ forward = true; v.loop = false; v.playbackRate = 1.0; v.currentTime = 0; v.play().catch(()=>{}); }
+                function playBackward(){
+                    try {
+                        forward = false; v.loop = false; v.playbackRate = -1.0; v.currentTime = Math.max(0, v.duration - 0.01); v.play().catch(()=>{});
+                    } catch(e) {
+                        // Fallback: simple loop if reverse playback unsupported
+                        forward = true; v.loop = true; v.playbackRate = 1.0; v.currentTime = 0; v.play().catch(()=>{});
+                    }
+                }
+                v.addEventListener('loadedmetadata', playForward);
+                v.addEventListener('ended', () => { if (forward) playBackward(); else playForward(); });
+                v.addEventListener('timeupdate', () => { if (!forward && v.currentTime <= 0.02) playForward(); });
+            });
+        })();
+
+        </script>
+
+    <!-- OGL (UMD) and Circular Gallery script -->
+    <script src="ogl.umd.js"></script>
+    <script src="circular-gallery.js"></script>
+
+</body>
+</html>
